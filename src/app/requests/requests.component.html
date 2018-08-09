@@ -1,0 +1,14 @@
+
+<div [class.card-columns]="columnView" #reactivity>
+    <div *ngFor = " let ppl of peoples_list ">
+        <div class = "media mb-2 rounded " *ngIf = "showEmp(ppl.username)">
+          <img [class.superSmall]="superSmall" class=" mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
+          <div class = " d-flex align-self-center justify-content-between media-body ">
+            
+            <h4 class = "card-title fntDynamicSize" > {{ppl.username}} </h4>
+            <!-- <a href="addConnection(1)"  [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded-circle"><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></a> -->
+            <button (click) = "addConnection(ppl)"  [class.bg-white]="!colorInvert" [class.bg-dark]="colorInvert" [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></button>
+          </div>	
+        </div>
+    </div>
+  </div>

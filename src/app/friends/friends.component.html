@@ -1,0 +1,18 @@
+
+
+<input class="form-control searchBox mb-3" [class.dynamicWidthIncrease]="classId"  id=1 type="text" placeholder="Search.." 
+       [(ngModel)] = "search" (focus) = "addClass()" (blur)="addClass()" >
+<br>
+<div  [class.card-columns]="columnView">
+	<div *ngFor = " let frnd of friends_list ">
+			<div class = "media mb-2 rounded" *ngIf = "toShow(frnd.username)">
+				<img class=" mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
+				<div class = " d-flex align-self-center media-body ">
+					<section>
+							<h4 class = "card-title fntDynamicSize"> {{frnd.username}} </h4>
+					</section>
+				</div>	
+			</div>
+	</div>
+</div>
+<br><br><br>

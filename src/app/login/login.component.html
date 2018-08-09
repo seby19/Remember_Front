@@ -1,0 +1,32 @@
+
+<div class="pt-5 pt-sm-0" style="min-height: 40em">
+	<div class="container  align-item-center" >
+	
+		<div class="row justify-content-between align-items-center expand-contain pt-4 " id = "login">
+			<div class="col-md-6 ">
+				
+				<p  class = "h3  mt-4"><span class="display-1 res_heading"> <span style="color:#68D820">G</span>et started...</span> </p>
+
+				<p  class = "h3  mt-4 res_para ">Let us remember things you don't even know you had to..!!</p>
+			</div>
+			<div class="col-md-4 mt-4  rounded text-white col-prm  pt-4">
+				<form [formGroup] = "loginForm" class = "align-items-center pt-5 pb-5">
+					<div class = "form-group">
+						<label class="form-label h6">Username</label>
+						<input  name = "username" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "username" class= "form-control" type="text" placeholder ="Username" class="form-control ">
+					</div>
+					<div class = "form-group h6">
+						<label class="form-label">Password</label>
+						<input  name = "password" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "password" class= "form-control" type="password"  placeholder ="password" class="form-control">
+					</div>
+					<button [disabled] = !loginForm.valid type="button" class="btn btn-success mt-5  btn-block" (click) = "loginCheck()"  >Log-in</button>
+					<div class=" mt-5 text-danger "  *ngIf = "(loginSuccess === -2)" >The entered username (or) password might be incorrect . Please check</div>
+                    <div class=" mt-5 text-danger "  *ngIf = "(loginSuccess === -3)" >We are having internal server problems.
+                    Please try after some time. Sorry for the inconvenience</div>
+				</form>
+			</div><!-- col -->
+		</div><!-- row -->
+	
+
+	</div>
+</div>

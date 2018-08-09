@@ -1,0 +1,21 @@
+.expand-contain{
+	min-height: 40em;
+	margin-top: 10%;
+}
+.col-prm{
+	 background-color: #212A2E;
+}
+
+
+@media (max-width: 600px) { 
+	.res_heading{
+		font-size : 50px;
+		font-weight: 10px;
+	}
+
+	.res_para{
+		font-size : 20px;
+		
+	}
+
+}

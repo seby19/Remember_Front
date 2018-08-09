@@ -1,0 +1,36 @@
+.searchBox{
+	 border-color : grey ; 
+	 width : 15em;
+}
+
+
+
+.dynamicWidthIncrease{
+	border-color : black ; 
+	width : 20em;
+}
+
+@media (min-width: 800px)
+{
+	.friendsIcon{
+	width : 7em;	
+	}		
+}
+
+
+@media (max-width: 799px)
+{
+	.friendsIcon{
+	width : 5em;	
+	}		
+}
+
+
+@media (max-width: 500px) { 
+
+	.fntDynamicSize{
+		font-size : 20px;
+				
+	}
+
+}

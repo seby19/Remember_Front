@@ -1,0 +1,56 @@
+.col-prm{
+	 background-color: #212A2E;
+}
+
+@media (max-width: 600px) { 
+	.res_heading{
+		font-size : 50px;
+
+	}
+
+	.res_para{
+		font-size : 20px;
+		color: #6B909E;		
+	}
+
+}
+
+@media (min-width: 601px)
+{
+	.para{
+		font-size: 25px ; 
+		color: #6B909E;
+	}
+}
+
+.dynamicWidthIncrease{
+	border-color : black ; 
+	width : 20em;
+}
+
+.peopleDropdown{
+	position: absolute;
+	z-index: 1;
+	overflow-y: auto;
+	width: 100%;
+	margin-top: 42px;
+	max-height: 300px;
+	background-color: #F6F6F6;
+}
+
+
+.requestsDropdown{
+	position: absolute;
+	z-index: 1;
+	overflow-y: auto;
+	width: 18em;
+	margin-top: 12px;
+	margin-right: 100px;
+	max-height: 300px;
+	background-color: #F6F6F6;
+}
+
+
+.buttonStyle{
+	width : 50px;
+}
