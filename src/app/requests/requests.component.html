@@ -1,13 +1,21 @@
 
 <div [class.card-columns]="columnView" #reactivity>
     <div *ngFor = " let ppl of peoples_list ">
-        <div class = "media mb-2 rounded " *ngIf = "showEmp(ppl.username)">
+        <div class = "media mb-2 rounded " >
           <img [class.superSmall]="superSmall" class=" mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
-          <div class = " d-flex align-self-center justify-content-between media-body ">
+          <div class = " d-flex  media-body ">
             
-            <h4 class = "card-title fntDynamicSize" > {{ppl.username}} </h4>
+            <div class="mr-auto">
+              <h4 class = "card-title fntDynamicSize" > {{ppl.username}} </h4>
+            </div>
             <!-- <a href="addConnection(1)"  [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded-circle"><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></a> -->
-            <button (click) = "addConnection(ppl)"  [class.bg-white]="!colorInvert" [class.bg-dark]="colorInvert" [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></button>
+            <div >
+                <!-- [class.conditionalAlignment] = "!superSmall" -->
+              <div class="d-flex " > 
+                <button (click) = "addConnection(ppl)"  [class.bg-white]="!colorInvert" [class.bg-dark]="colorInvert" [class.extraSmall]="superSmall" class = " d-flex  rounded btn "><img class="   rounded-circle connectIcon"  src="../../assets/Tick_1.png" alt="Card image"></button>
+                <button (click) = "addConnection(ppl)"  [class.bg-white]="!colorInvert" [class.bg-dark]="colorInvert" [class.extraSmall]="superSmall" class = " d-flex rounded btn "><img class="  rounded-circle connectIcon"  src="../../assets/cancel.png" alt="Card image"></button>
+              </div>
+            </div>
           </div>	
         </div>
     </div>

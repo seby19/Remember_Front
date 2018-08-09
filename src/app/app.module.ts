@@ -24,6 +24,7 @@ import { GetfriendsService } from './friends/getfriends.service';
 import { ConnectPeopleComponent } from './connect-people/connect-people.component';
 import { ConnectPeopleService } from './connect-people/connect-people.service';
 import { ClickOutsideModule } from 'ng4-click-outside';
+import { RequestsService } from "./requests/requests.service";
 
 
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
@@ -70,7 +71,7 @@ const stompConfig: StompConfig = {
   ],
   imports: [     
     BrowserModule , HttpModule  , AppRoutingModule , FormsModule , ReactiveFormsModule  , HttpClientModule , ClickOutsideModule],
-  providers: [ SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
+  providers: [ RequestsService ,SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
                       ConnectPeopleService ,
                       StompService , 
                       {

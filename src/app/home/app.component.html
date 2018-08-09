@@ -29,7 +29,7 @@
                     <img class=" d-flex bg-dark justify-content-end rounded-circle " src="../../assets/requests.png" alt="Card image">
                 </button>
                 <div class = "requestsDropdown container bg-dark text-light rounded"  >
-                        <div class = "mt-2"  *ngIf = "requestDropDown"><app-connect-people [empName] = "" ></app-connect-people></div>
+                        <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests ></app-requests></div>
                 </div>
             </li>
             <li *ngIf = "checkLogin()" class="nav-item ml-3">

@@ -1,0 +1,72 @@
+.searchBox{
+    border-color : grey ; 
+    width : 15em;
+}
+
+@media (min-width: 800px)
+{
+   .friendsIcon{
+   width : 7em;	
+   }
+
+   .connectIcon{
+       width : 3em;	
+   }
+
+   .conditionalAlignment{
+        height: 7em;
+   }		
+}
+
+
+@media (max-width: 799px)
+{
+   .friendsIcon{
+   width : 5em;	
+   }
+
+   .connectIcon{
+       width : 3em;	
+   }
+}
+.dynamicWidthIncrease{
+   border-color : black ; 
+   width : 20em;
+}
+
+@media (max-width: 500px) { 
+
+   .fntDynamicSize{
+       font-size : 20px;
+               
+   }
+
+
+}
+
+.superSmall{
+   width : 30px;	
+}
+
+.extraSmall{
+   width : 50px;
+   height: 50px;
+}
+
+
+@media ( max-width: 245px)
+{
+   .friendsIcon{
+   width : 5px;	
+   }
+
+   .connectIcon{
+       width : 5px;	
+   }
+
+   .fntDynamicSize{
+       
+       font-size : 10px;
+               
+   }
+}

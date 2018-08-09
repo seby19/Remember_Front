@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
   constructor(public sign : SignUpService , private _signUpFormBuilder : FormBuilder , public _login : LoginService,
   				public router : Router , public route : ActivatedRoute , private userLog :LoggedInCheckService  ,
   				private jwttokenService  : JwttokenService ){
-  	
+		this.requestDropDown = false;
   	
   }
 	ngOnInit()
