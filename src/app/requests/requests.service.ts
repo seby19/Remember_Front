@@ -16,6 +16,8 @@ export class RequestsService {
   //private url : string = 'http://localhost:8080/remember_server/rem/getPeople'
 
   private url : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
+  private acceptUrl : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
+  private rejectUrl : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
   constructor( private http : Http) { }
 
   getRequests()
@@ -31,6 +33,24 @@ export class RequestsService {
 		//console.error("connect-people.service " + error);
 		return Observable.throw(error || "Server Error");
 		
-	}
+  }
+  
+  acceptConnection(ppl){
+    const headers = new Headers();
+		headers.append('Content-Type', 'text/plain');
+		headers.append('Authorization' , localStorage.getItem('Authorization'));
+		const options = new RequestOptions({headers : headers});
+		return this.http.post(this.acceptUrl ,'' , options).map((response : Response) => response)
+			.catch(this.errorHandle);
+  }
+
+  rejectConnection(ppl){
+    const headers = new Headers();
+		headers.append('Content-Type', 'text/plain');
+		headers.append('Authorization' , localStorage.getItem('Authorization'));
+		const options = new RequestOptions({headers : headers});
+		return this.http.post(this.rejectUrl ,'' , options).map((response : Response) => response)
+			.catch(this.errorHandle);
+  }
 
 }

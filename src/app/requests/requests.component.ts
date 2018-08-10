@@ -88,9 +88,14 @@ export class RequestsComponent implements OnInit {
 	}
 
 
-  addConnection(ppl){
+  acceptConnection(ppl){
     this.peoples_list.splice(this.peoples_list.indexOf(ppl) , 1);
-    this.requestsService.sendConnect(ppl);
+    this.requestsService.acceptConnection(ppl);
+  }
+
+  rejectConnection(ppl){
+    this.peoples_list.splice(this.peoples_list.indexOf(ppl) , 1);
+    this.requestsService.rejectConnection(ppl);
   }
 }
 
