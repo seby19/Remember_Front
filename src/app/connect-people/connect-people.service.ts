@@ -25,7 +25,7 @@ export class ConnectPeopleService {
   
   private url : string = 'http://localhost:8080/remember_server/rem/getPeople'
 	constructor(  private http : Http , private stompService : StompService ){
-		this.initializeWebSocketConnection();
+		//this.initializeWebSocketConnection();
 		
 	}
 
@@ -60,17 +60,17 @@ export class ConnectPeopleService {
 
 	this.messages2 = this.stompService.subscribe('/broker/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
 	
-	
-	this.subscription2 = this.messages2.subscribe(this.on_next);
+	return this.messages2;
+	//this.subscription2 = this.messages2.subscribe(this.on_next);
 
  
 	}
 
-	public on_next = (message: Message ) => {
+	/*public on_next = (message: Message ) => {
 
-
-    console.log(message + "from server");
-	}
+	
+    console.log(message.username + "from server");
+	}*/
 
 
 	  sendConnect(ppl){

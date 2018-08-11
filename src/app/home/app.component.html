@@ -11,17 +11,18 @@
             </li>
             
             
-            <li class="nav-item  mr-1" *ngIf = "checkLogin()" (clickOutside) = "removeClassOnOutsideClick()" >
-              <div class="input-group">  
+            <li class="nav-item  mr-1" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
+              <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
                   <input class="form-control" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
-                    [(ngModel)] = "search"  (focus) = "addClassOnFocus()"  >
-                  <div class="input-group-append">
+                    [(ngModel)] = "search"    >
+                  <div class="input-group-append" >
                     <button class="fa fa-search btn btn-block rounded" ></button>
                   </div>
                   <div class = "peopleDropdown container bg-dark text-light rounded"  >
-                     <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [empName] = search ></app-connect-people></div>
+                    <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
                   </div>
               </div>  
+              
             </li>
             
             <li *ngIf = "checkLogin()" class="nav-item " (clickOutside) = "hideRequestDropDown()">

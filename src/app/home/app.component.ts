@@ -8,6 +8,7 @@ import { LoggedInCheckService } from '../logged-in-check.service';
 import { JwttokenService } from '../jwttoken.service';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { JwtUserData } from '../JwtUserData';
+import {StompService} from '@stomp/ng2-stompjs';
 
 @Component({
   selector: 'app-root',
@@ -24,10 +25,10 @@ export class AppComponent implements OnInit{
   	JwtToken : string = null;
   	classId : boolean = false;
 	search : string = null;
-	requestDropDown = false;  
+	requestDropDown = false;
   constructor(public sign : SignUpService , private _signUpFormBuilder : FormBuilder , public _login : LoginService,
   				public router : Router , public route : ActivatedRoute , private userLog :LoggedInCheckService  ,
-  				private jwttokenService  : JwttokenService ){
+  				private jwttokenService  : JwttokenService , private stompService : StompService ){
 		this.requestDropDown = false;
   	
   }
@@ -134,11 +135,13 @@ export class AppComponent implements OnInit{
 	Logout(){
 		//localStorage.removeItem( 'Authorization' );
 		//localStorage.removeItem( 'username' );
+		this.loginSuccess = 0;
 		this.employees = [];
 	  	this.search  = null;
-	  	this.loginSuccess = 0;
-		//this.router.navigate(['/'] );
+	  	//this.router.navigate(['/'] );
 		this.userLog.Logout();
+		this.stompService.disconnect();
+
 	}
 
 	addClassOnFocus()
@@ -148,19 +151,25 @@ export class AppComponent implements OnInit{
 
 	  removeClassOnOutsideClick()
 	  {
-	  	this.classId =  false ;
+		  this.classId =  false ;
 	  }
 
 	showDropDown()
 	{
-		if(this.search == null  || !this.classId)
+		if(this.search == null )
 		{
+			//console.log(" 1 this.search " + this.search + " this.classId " + this.classId )
 			return false;
+			
 		}
 		else if ( this.search == "")
 		{
+			//console.log(" 2 this.search " + this.search + " this.classId " + this.classId )
 			return false;
+			
 		}
+		//console.log(" 3 this.search " + this.search + " this.classId " + this.classId )
+		//this.classId = true;
 		return true;
 	}
 	showRequestDropDown()
