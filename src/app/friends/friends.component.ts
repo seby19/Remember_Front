@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GetfriendsService } from './getfriends.service';
 import { HostListener } from "@angular/core";
 import { LoggedInCheckService } from '../logged-in-check.service';
-
+import { RequestsService } from "../requests/requests.service";
+import { JwtUserData } from "../JwtUserData";
 
 @Component({
   selector: 'app-friends',
@@ -16,7 +17,9 @@ export class FriendsComponent implements OnInit {
   	search :string = null;
   	classId : boolean = false;
     columnView :boolean = true;
-  constructor(private friends : GetfriendsService ,  private userLog :LoggedInCheckService ) { 
+    socket1  = null;
+    internalSocket = null;
+  constructor(private requestsService : RequestsService , private friends : GetfriendsService ,  private userLog :LoggedInCheckService ) { 
   		this.friends_list = null;
   		this.errorMsg = null;
    }
@@ -36,8 +39,45 @@ export class FriendsComponent implements OnInit {
         this.columnView = true;
         this.userLog.Logout();
       });
-  }
 
+      this.socket1  = this.requestsService.initializeWebSocketConnection().subscribe(async userData =>{
+        await this.addToFriends_list1(JSON.parse(userData.body));
+      },
+      error => {this.errorMsg = error;
+        this.friends_list = null;
+        this.errorMsg = null;
+        this.search  = null;
+        this.classId  = false;
+        this.columnView = true; 
+        this.userLog.Logout();
+        });
+        
+      this.internalSocket = this.friends.initializeWebSocketConnection().subscribe(async userData =>{
+        await this.addToFriends_list(userData.body);
+      },
+      error => {this.errorMsg = error;
+        this.friends_list = null;
+        this.errorMsg = null;
+        this.search  = null;
+        this.classId  = false;
+        this.columnView = true; 
+        this.userLog.Logout();
+        });
+
+    
+
+  }
+  addToFriends_list1(data)
+  { 
+    this.friends_list.push(data);
+  }
+  addToFriends_list(data)
+  { 
+    console.log(data)
+    var data1 = data.split(" ");
+    let jwtUser = new JwtUserData(data1[0] , data1[1]);
+    this.friends_list.push(jwtUser);
+  }
   setFriends_list(data)
   {
   	this.friends_list = data;

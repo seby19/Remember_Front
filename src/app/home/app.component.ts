@@ -101,8 +101,10 @@ export class AppComponent implements OnInit{
 		  let jwtUser = new JwtUserData(this.signup.value.username_sign , this.loginSuccess);
 
 		  this.jwttokenService.getToken(jwtUser).subscribe(async jwtDataService =>{
-		  		await this.setJwtToken(jwtDataService);
+				await this.setJwtToken(jwtDataService);
+				console.log(" data singup :" + data)  
 				localStorage.setItem( 'Authorization' , 'Token ' +this.JwtToken);
+				localStorage.setItem( 'username' ,this.signup.value.username_sign );
 	            this.changedValueFromLogin(this.loginSuccess );
 			  },
 			  error => this.errorMsg = error);
@@ -118,6 +120,7 @@ export class AppComponent implements OnInit{
 	{
 		this.loginSuccess = loginSuccess;
 		//this.userLog.setisLoggedIn();
+		console.log(" data singup 2 : " + this.loginSuccess )
 		this.router.navigate(['/login'] );
 	}
 	checkLogin() : boolean
@@ -156,7 +159,7 @@ export class AppComponent implements OnInit{
 
 	showDropDown()
 	{
-		if(this.search == null )
+		if(this.search == null || !this.classId)
 		{
 			//console.log(" 1 this.search " + this.search + " this.classId " + this.classId )
 			return false;

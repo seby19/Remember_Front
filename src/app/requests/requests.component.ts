@@ -3,6 +3,7 @@ import { RequestsService } from "./requests.service";
 import { HostListener  , Input} from "@angular/core";
 import { LoggedInCheckService } from '../logged-in-check.service';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ConnectPeopleService } from "../connect-people/connect-people.service";
 
 @Component({
   selector: 'app-requests',
@@ -18,16 +19,18 @@ export class RequestsComponent implements OnInit {
   columnView :boolean = true;
   superSmall : boolean = false;
   colorInvert : boolean = false;
-
+  socket1 = null;
   @ViewChild('reactivity') elementView: ElementRef;
 
-  constructor(private requestsService : RequestsService ,  private userLog :LoggedInCheckService ) { 
+  constructor(private requestsService : RequestsService ,  private userLog :LoggedInCheckService ,
+              private connectPeopleService : ConnectPeopleService ) { 
       this.peoples_list = null;
       this.errorMsg = null;
       this.search_string  = null;
       this.classId  = false;
       this.columnView = true;
       this.superSmall  = false;
+      this.socket1 = null;
   }
 
 
@@ -51,6 +54,28 @@ export class RequestsComponent implements OnInit {
   			});
 
       this.onResize(null);
+
+      this.socket1 = null;
+
+      this.socket1 = this.connectPeopleService.initializeWebSocketConnection().subscribe(async userData =>{
+        await this.addToPeople_list(JSON.parse(userData.body));
+      },
+      error => {this.errorMsg = error
+        this.peoples_list = null;
+        this.errorMsg = null;
+        this.search_string  = null;
+        this.classId  = false;
+        this.columnView = true;
+        this.superSmall  = false;
+  			this.userLog.Logout();
+        });
+
+      this.requestsService.initializeWebSocketConnection();
+  }
+
+  addToPeople_list(data)
+  {
+    this.peoples_list.push(data);
   }
 
   setPeople_list(data){
@@ -90,12 +115,12 @@ export class RequestsComponent implements OnInit {
 
   acceptConnection(ppl){
     this.peoples_list.splice(this.peoples_list.indexOf(ppl) , 1);
-    this.requestsService.acceptConnection(ppl);
+    this.requestsService.editConnection(ppl , 1);
   }
 
   rejectConnection(ppl){
     this.peoples_list.splice(this.peoples_list.indexOf(ppl) , 1);
-    this.requestsService.rejectConnection(ppl);
+    this.requestsService.editConnection(ppl , 2);
   }
 }
 

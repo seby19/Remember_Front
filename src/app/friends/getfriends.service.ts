@@ -5,11 +5,22 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
 
+
+import {Message} from 'stompjs';
+import { Subscription } from 'rxjs/Subscription';
+import {StompService} from '@stomp/ng2-stompjs';
+
+
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+
 @Injectable()
 export class GetfriendsService {
 
+	public messages: Observable<Message>;
+
   private url : string = 'http://localhost:8080/remember_server/rem/getFriends'
-	constructor(  private http : Http){
+	constructor(  private http : Http , private stompService : StompService){
 
 		
 	}
@@ -30,5 +41,28 @@ export class GetfriendsService {
 		
 	}
 
+	initializeWebSocketConnection(){
+
+		const headers = new Headers();
+		  headers.append('Content-Type', 'text/plain');
+		  headers.append('Authorization' , localStorage.getItem('Authorization'));
+		  
+		  //This is used to subscribe to you're self
+		  //this.messages2 = this.stompService.subscribe('/user/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
+	  
+	  
+		  this.messages = this.stompService.subscribe('/broker/internal/' + localStorage.getItem("username").toLowerCase() +'/queue/showConnections' , {headers : headers});
+		  console.log("in socket");
+		  return this.messages;
+		  //this.subscription = this.messages.subscribe(this.on_next);
+	   
+		}
+	  
+		/*on_next = (message: Message) =>
+		{
+		  console.log(message + "connnects");
+		}*/
+	  
+	
 
 }

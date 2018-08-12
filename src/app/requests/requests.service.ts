@@ -16,11 +16,12 @@ export class RequestsService {
   private subscription: Subscription;
   public messages: Observable<Message>;
   private stompClient;
-    
   private url : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
   private acceptUrl : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
   private rejectUrl : string = 'http://localhost:8080/remember_server/rem/getConnectionsRequests'
-  constructor( private http : Http , private stompService : StompService ) { }
+  constructor( private http : Http , private stompService : StompService ) {
+      
+   }
 
   getRequests()
   {
@@ -37,22 +38,24 @@ export class RequestsService {
 		
   }
   
-  acceptConnection(ppl){
+  editConnection(ppl , property : number){
     const headers = new Headers();
 		headers.append('Content-Type', 'text/plain');
 		headers.append('Authorization' , localStorage.getItem('Authorization'));
 		const options = new RequestOptions({headers : headers});
-		return this.http.post(this.acceptUrl ,'' , options).map((response : Response) => response)
-			.catch(this.errorHandle);
-  }
+    if(property == 1)
+    {
+      this.stompService.publish("/rem/editConnections/" + ppl.username.toLowerCase() + "/1" 
+            , ppl.id ,  {headers : headers});
 
-  rejectConnection(ppl){
-    const headers = new Headers();
-		headers.append('Content-Type', 'text/plain');
-		headers.append('Authorization' , localStorage.getItem('Authorization'));
-		const options = new RequestOptions({headers : headers});
-		return this.http.post(this.rejectUrl ,'' , options).map((response : Response) => response)
-			.catch(this.errorHandle);
+      this.stompService.publish('/broker/internal/' + localStorage.getItem("username").toLowerCase() +'/queue/showConnections' 
+            , ppl.username + " " + ppl.id ,  {headers : headers});
+    }
+    else
+    {
+      this.stompService.publish("/rem/editConnections/" + ppl.username.toLowerCase() + "/2" 
+          , ppl.id ,  {headers : headers});
+    }  
   }
 
   initializeWebSocketConnection(){
@@ -65,14 +68,16 @@ export class RequestsService {
 	//this.messages2 = this.stompService.subscribe('/user/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
 
 
-	this.messages = this.stompService.subscribe('/broker/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
+	this.messages = this.stompService.subscribe('/broker/' + localStorage.getItem("username").toLowerCase() +'/queue/showConnections' , {headers : headers});
 	
-	
-	this.subscription = this.messages.subscribe(this.on_next);
+	return this.messages;
+	//this.subscription = this.messages.subscribe(this.on_next);
  
   }
-  public on_next = (message: Message ) => {
-    console.log(message.username + "from server");
-	}
+
+  /*on_next = (message: Message) =>
+  {
+    console.log(message + "connnects");
+  }*/
 
 }
