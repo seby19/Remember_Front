@@ -2,6 +2,11 @@
 	 background-color: #212A2E;
 }
 
+.navbar-toggler-icon{
+	/* background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00'); */
+	background-image: url('../../assets/hamburger1.png');
+}
+
 @media (max-width: 600px) { 
 	.res_heading{
 		font-size : 50px;

@@ -122,7 +122,7 @@ export class ConnectPeopleComponent implements OnInit {
       {
         this.columnView = false;
         this.superSmall = true;
-        if((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 100)
+        if(((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 100) && ((this.empName == null) || (this.empName == "") ))
         {
           this.colorInvert = false
         }
@@ -132,7 +132,13 @@ export class ConnectPeopleComponent implements OnInit {
         }
       }
       else{
-        this.colorInvert = false
+        if(((this.empName == null) || (this.empName == "") ))
+        {
+          this.colorInvert = false
+        }
+        else{
+          this.colorInvert = true
+        }
         this.superSmall = false;
       }
 	}

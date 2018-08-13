@@ -26,10 +26,12 @@ export class AppComponent implements OnInit{
   	classId : boolean = false;
 	search : string = null;
 	requestDropDown = false;
+	marginTop = true;
   constructor(public sign : SignUpService , private _signUpFormBuilder : FormBuilder , public _login : LoginService,
   				public router : Router , public route : ActivatedRoute , private userLog :LoggedInCheckService  ,
   				private jwttokenService  : JwttokenService , private stompService : StompService ){
 		this.requestDropDown = false;
+		this.marginTop = true;
   	
   }
 	ngOnInit()
@@ -182,5 +184,22 @@ export class AppComponent implements OnInit{
 	hideRequestDropDown()
 	{
 		this.requestDropDown = false;
+	}
+
+	hidingFunc(){
+		if(!(this.checkLogin()))
+		{
+			return true;
+		}
+		else
+		{
+			if(window.innerWidth< 770)
+			{
+				this.marginTop=  false;
+				return false;
+			}
+			this.marginTop=  true;
+			return true;
+		}
 	}
 }

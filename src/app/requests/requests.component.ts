@@ -97,7 +97,7 @@ export class RequestsComponent implements OnInit {
       {
         this.columnView = false;
         this.superSmall = true;
-        if((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 100)
+        if((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 20)
         {
           this.colorInvert = false
         }
@@ -110,6 +110,7 @@ export class RequestsComponent implements OnInit {
         this.colorInvert = false
         this.superSmall = false;
       }
+      console.log(this.elementView.nativeElement.parentElement.innerWidth + "seby Parent")
 	}
 
 
