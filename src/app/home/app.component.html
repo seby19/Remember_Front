@@ -48,41 +48,40 @@
         <a href="#"  *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
         <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
         
-        <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15"
-        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    
+        <span class="navbar-toggler navbar-toggler-icon  rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15"
+        aria-expanded="false" aria-label="Toggle navigation"></span>
+        <!-- <span class="navbar-toggler-icon"></span> -->
         <div class="collapse navbar-collapse " id="navbarSupportedContent15">
 
             <ul class="navbar-nav d-flex">
-                <li class="nav-item" *ngIf = "!checkLogin()">
-                <a class="nav-link" href="#login" >Login</a><!--  routerLink = "/login"  routerLinkActive = "active" -->
-                </li>
                 
-                
-                <li class="nav-item  mt-3" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
-                <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
-                    <input class="form-control rounded" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
-                        [(ngModel)] = "search"    >
-                    <!-- <div class="input-group-append" >
-                        <button class="fa fa-search btn btn-block rounded" ></button>
-                    </div> -->
-                    <div class = "peopleDropdown container bg-dark text-light rounded"  >
-                        <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
-                    </div>
-                </div>  
-                
-                </li>
-                
-                <li *ngIf = "checkLogin()" class="nav-item mt-1" (clickOutside) = "hideRequestDropDown()">
-                    <button (click)= "showRequestDropDown()"  class = " d-flex bg-dark justify-content-between rounded btn buttonStyle">
-                        <img class=" d-flex bg-dark justify-content-end rounded-circle " src="../../assets/requests.png" alt="Card image">
-                    </button>
-                    <div class = "requestsDropdown container bg-dark text-light rounded" style="margin-top: 3px " >
-                            <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests ></app-requests></div>
+                <li *ngIf = "checkLogin()" class="nav-item mt-3 mb-2" (clickOutside) = "hideRequestDropDown()">
+                    <span (click)= "showRequestDropDown()" class="text-light menuItemsHamburger">Show requests</span>
+                    <div class = "requestsDropdownHamburger container bg-dark text-light rounded" style="margin-top: 3px " >
+                            <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests [logoutKeeper] = loginSuccess ></app-requests></div>
                     </div>
                 </li>
-                <li *ngIf = "checkLogin()" class="nav-item mt-1">
-                    <button type="button" class="btn btn-success ml-auto " (click) = "Logout()" >Logout</button>
+
+                <div class="horizontalLine rounded"></div>
+
+                <li class="nav-item  mt-2 mb-2" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
+                    <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
+                        <input class="form-control rounded"  id="search" type="text" placeholder="Search people.." 
+                            [(ngModel)] = "search"    >
+                        <!-- <div class="input-group-append" >
+                            <button class="fa fa-search btn btn-block rounded" ></button>
+                        </div> -->
+                        <div class = "peopleDropdown container bg-dark text-light rounded"  >
+                            <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
+                        </div>
+                    </div>  
+                    
+                </li>
+
+                <div class="horizontalLine rounded"></div>
+
+                <li *ngIf = "checkLogin()" class="nav-item mt-2 ">
+                    <button type="button" class="btn btn-success  " (click) = "Logout()" >Logout</button>
                 </li>
     
             </ul>   

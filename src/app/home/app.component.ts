@@ -193,7 +193,7 @@ export class AppComponent implements OnInit{
 		}
 		else
 		{
-			if(window.innerWidth< 770)
+			if(window.innerWidth< 900)
 			{
 				this.marginTop=  false;
 				return false;

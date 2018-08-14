@@ -4,8 +4,22 @@
 
 .navbar-toggler-icon{
 	/* background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00'); */
-	background-image: url('../../assets/hamburger1.png');
+	/* background-image: url('../../assets/hamburger1.png'); */
+	margin-top: 0%;
+	height: 30px;
+	border: 0px
 }
+
+.horizontalLine{
+	background-color: rgb(119, 117, 117);	
+	height: 1px;
+}
+
+.menuItemsHamburger{
+	cursor: pointer;
+}
+
+
 
 @media (max-width: 600px) { 
 	.res_heading{
@@ -55,6 +69,36 @@
 	background-color: #F6F6F6;
 }
 
+
+@media (max-width: 399px) { 
+	.requestsDropdownHamburger{
+		position: absolute;
+		z-index: 1;
+		overflow-y: auto;
+		width: 250px;
+		margin-top: 12px;
+		margin-right: 100px;
+		max-height: 300px;
+		background-color: #F6F6F6;
+	}
+	
+
+}
+
+@media (min-width: 400px)
+{
+	.requestsDropdownHamburger{
+		position: absolute;
+		z-index: 1;
+		overflow-y: auto;
+		width: 18em;
+		margin-top: 12px;
+		margin-right: 100px;
+		max-height: 300px;
+		background-color: #F6F6F6;
+	}
+	
+}
 
 .buttonStyle{
 	width : 50px;

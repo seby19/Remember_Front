@@ -21,6 +21,7 @@ export class RequestsComponent implements OnInit {
   colorInvert : boolean = false;
   socket1 = null;
   @ViewChild('reactivity') elementView: ElementRef;
+  @Input() logoutKeeper : number = null;
 
   constructor(private requestsService : RequestsService ,  private userLog :LoggedInCheckService ,
               private connectPeopleService : ConnectPeopleService ) { 
@@ -97,7 +98,7 @@ export class RequestsComponent implements OnInit {
       {
         this.columnView = false;
         this.superSmall = true;
-        if((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 20)
+        if((window.innerWidth - this.elementView.nativeElement.offsetWidth ) <= 100 && this.logoutKeeper == null)
         {
           this.colorInvert = false
         }
@@ -110,7 +111,7 @@ export class RequestsComponent implements OnInit {
         this.colorInvert = false
         this.superSmall = false;
       }
-      console.log(this.elementView.nativeElement.parentElement.innerWidth + "seby Parent")
+      console.log(this.elementView.nativeElement.parentNode + "seby Parent")
 	}
 
 
