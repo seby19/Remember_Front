@@ -1,8 +1,8 @@
 
 <!-- A grey horizontal navbar that becomes vertical on small screens -->
-<nav *ngIf="hidingFunc()"  class="navbar navbar-expand fixed-top navbar-dark pb-3 pt-3  col-prm hidingClass2">
+<nav *ngIf="hidingFunc()" style="height: 60px;" class="navbar navbar-expand fixed-top navbar-dark pb-3 pt-3  col-prm hidingClass2">
     <div class = "container ">
-        <a href="#"  *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
+        <a href="#"   *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
         <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
         
         <ul class="navbar-nav ">
@@ -13,12 +13,12 @@
             
             <li class="nav-item  mr-1" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
             <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
-                <input class="form-control rounded" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
+                <input class="form-control rounded" style="height: 32px;" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
                     [(ngModel)] = "search"    >
                 <!-- <div class="input-group-append" >
                     <button class="fa fa-search btn btn-block rounded" ></button>
                 </div> -->
-                <div class = "peopleDropdown container bg-dark text-light rounded"  >
+                <div class = "peopleDropdown container bg-dark text-light rounded" >
                     <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
                 </div>
             </div>  
@@ -26,15 +26,18 @@
             </li>
             
             <li *ngIf = "checkLogin()" class="nav-item " (clickOutside) = "hideRequestDropDown()">
-                <button (click)= "showRequestDropDown()"  class = " d-flex bg-dark justify-content-between ml-5 rounded btn buttonStyle">
+                <!-- <button (click)= "showRequestDropDown()"  class = " d-flex bg-dark justify-content-between ml-5 rounded btn buttonStyle">
                     <img class=" d-flex bg-dark justify-content-end rounded-circle " src="../../assets/requests.png" alt="Card image">
-                </button>
+                </button> -->
+                <div class="requests ml-5 " (click)= "showRequestDropDown()">
+                    <span class=" d-flex bg-dark justify-content-end rounded-circle "></span>
+                </div>
                 <div class = "requestsDropdown container bg-dark text-light rounded"  >
                         <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests ></app-requests></div>
                 </div>
             </li>
             <li *ngIf = "checkLogin()" class="nav-item ml-3">
-                <button type="button" class="btn btn-success btn-block" (click) = "Logout()" >Logout</button>
+                <button type="button"  style="height: 32px; font-size: 13px" class="btn btn-success btn-block" (click) = "Logout()" >Logout</button>
             </li>
 
         </ul>
@@ -43,7 +46,7 @@
     </div><!-- Container -->
 </nav>
 
-<nav *ngIf="!hidingFunc()" class="navbar  navbar-dark pb-3 pt-3  col-prm ">
+<nav *ngIf="!hidingFunc()"   class="navbar  navbar-dark pb-3 pt-3  col-prm ">
     <div class = "container ">
         <a href="#"  *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
         <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
@@ -71,7 +74,7 @@
                         <!-- <div class="input-group-append" >
                             <button class="fa fa-search btn btn-block rounded" ></button>
                         </div> -->
-                        <div class = "peopleDropdown container bg-dark text-light rounded"  >
+                        <div style="margin-top: 42px;" class = "peopleDropdown container bg-dark text-light rounded"  >
                             <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
                         </div>
                     </div>  

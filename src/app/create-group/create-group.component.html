@@ -1,0 +1,21 @@
+<div class = " col-lg-4 text-dark  bg-white rounded">
+  <form [formGroup] = "createGroup"  class = " align-items-center pt-5 pb-5">
+     <div class=" res_para ">
+       Groups are the major source of information . Choose all the connections who are appropriate for the 
+       posts in this group .
+     </div><br><br>
+     <div class = "form-group h6">
+         <label class="form-label">Name</label>
+         <input  name = "groupName" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupName" class= "form-control" type="text"  placeholder ="Group name" class="form-control">
+     </div>  
+     <div class = "form-group">
+         <label class="form-label h6">Description</label>
+         <input  name = "groupDesc" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupDesc" class= "form-control" type="text" placeholder ="Describe" class="form-control ">
+     </div>
+      
+     <button [disabled] = (!createGroup.valid) type="button" class="btn btn-success mt-5 " (click) = "createGroups()"  >Create</button>
+
+     <div class=" mt-5 text-danger "  *ngIf = "(groupDataError === 3)" >We are having internal server problems.
+     Please try after some time. Sorry for the inconvenience</div>
+ </form>
+</div><!-- col -->

@@ -2,6 +2,14 @@
 	 background-color: #212A2E;
 }
 
+.requests{
+	background-image : url('../../assets/requests.png');
+	background-size: 35px;
+	height: 35px;
+	width: 35px;
+	opacity: 1;
+	cursor: pointer;
+}
 .navbar-toggler-icon{
 	/* background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00'); */
 	/* background-image: url('../../assets/hamburger1.png'); */
@@ -52,7 +60,7 @@
 	z-index: 1;
 	overflow-y: auto;
 	width: 100%;
-	margin-top: 42px;
+	margin-top: 37px;
 	max-height: 300px;
 	background-color: #F6F6F6;
 }
@@ -62,7 +70,7 @@
 	position: absolute;
 	z-index: 1;
 	overflow-y: auto;
-	width: 18em;
+	width: 16em;
 	margin-top: 12px;
 	margin-right: 100px;
 	max-height: 300px;
