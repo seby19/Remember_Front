@@ -1,5 +1,11 @@
 
 
 .res_para{
-	color: rgb(9, 90, 119);		
+	color: rgb(0, 0, 0);		
+}
+
+.horizontalLine{
+	background-color:rgb(162, 221, 247);	
+	height: 1px;
+	
 }

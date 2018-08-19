@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit  , ElementRef, ViewChild} from '@angular/core';
 import { SignUpService } from './signup.service';
 import { FormGroup , FormControl , Validators , FormBuilder} from '@angular/forms';
 import { LoginService } from '../login/login.service';
@@ -27,11 +27,20 @@ export class AppComponent implements OnInit{
 	search : string = null;
 	requestDropDown = false;
 	marginTop = true;
+	requestsMenuDesc : boolean = false;
+	GroupMenuDesc : boolean = false;
+	GroupMenu = false;
+	@ViewChild('division1') division1: ElementRef;
+	@ViewChild('division2') division2: ElementRef;
+
   constructor(public sign : SignUpService , private _signUpFormBuilder : FormBuilder , public _login : LoginService,
   				public router : Router , public route : ActivatedRoute , private userLog :LoggedInCheckService  ,
   				private jwttokenService  : JwttokenService , private stompService : StompService ){
 		this.requestDropDown = false;
 		this.marginTop = true;
+		this.requestsMenuDesc  = false;
+		this.GroupMenuDesc = false;
+		this.GroupMenu = false;
   	
   }
 	ngOnInit()
@@ -62,6 +71,11 @@ export class AppComponent implements OnInit{
 		{
 			this.Logout();
 		}
+
+		if(localStorage.getItem('GroupId') != null)
+		{ 
+			this.showCreateGroup();
+		}
 		
 	}
 	SignUp()
@@ -72,6 +86,22 @@ export class AppComponent implements OnInit{
 													this.signupdoneCheck(this.signupdone);
 												},	
 												signuperror => this.signupdataerror = signuperror );
+	}
+
+	showRequestsMenuDesc(){
+		this.requestsMenuDesc = true;
+	}
+
+	hideRequestsMenuDesc(){
+		this.requestsMenuDesc = false;
+	}
+
+	showGroupMenuDesc(){
+		this.GroupMenuDesc = true;
+	}
+
+	hideGroupMenuDesc(){
+		this.GroupMenuDesc = false;
 	}
 	setsignupdone(data)
 	{
@@ -179,11 +209,23 @@ export class AppComponent implements OnInit{
 	}
 	showRequestDropDown()
 	{
+		this.hideRequestsMenuDesc();
 		this.requestDropDown = !(this.requestDropDown);
 	}
 	hideRequestDropDown()
 	{
 		this.requestDropDown = false;
+	}
+	showCreateGroup(){
+		this.GroupMenu = true;
+		//this.division1.nativeElement.style.filter = 50%;
+		//this.division2.nativeElement.style.filter = 50%;
+	}
+	hideCreateGroup(){
+		this.GroupMenu = false;
+		localStorage.removeItem('GroupId');
+		//this.division1.nativeElement.style.opacity = 1;
+		//this.division2.nativeElement.style.opacity = 1;
 	}
 
 	hidingFunc(){

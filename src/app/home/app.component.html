@@ -1,145 +1,172 @@
 
 <!-- A grey horizontal navbar that becomes vertical on small screens -->
-<nav *ngIf="hidingFunc()" style="height: 60px;" class="navbar navbar-expand fixed-top navbar-dark pb-3 pt-3  col-prm hidingClass2">
-    <div class = "container ">
-        <a href="#"   *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
-        <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
-        
-        <ul class="navbar-nav ">
-            <li class="nav-item" *ngIf = "!checkLogin()">
-            <a class="nav-link" href="#login" >Login</a><!--  routerLink = "/login"  routerLinkActive = "active" -->
-            </li>
+<div #division1 [class.lessBright] = "GroupMenu">
+    <nav *ngIf="hidingFunc()" [class.fixed-top] = "!GroupMenu" style="height: 60px;" class="navbar navbar-expand fixed-top navbar-dark pb-3 pt-3  col-prm hidingClass2">
+        <div class = "container ">
+            <a href="#"   *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
+            <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
             
-            
-            <li class="nav-item  mr-1" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
-            <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
-                <input class="form-control rounded" style="height: 32px;" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
-                    [(ngModel)] = "search"    >
-                <!-- <div class="input-group-append" >
-                    <button class="fa fa-search btn btn-block rounded" ></button>
-                </div> -->
-                <div class = "peopleDropdown container bg-dark text-light rounded" >
-                    <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
-                </div>
-            </div>  
-            
-            </li>
-            
-            <li *ngIf = "checkLogin()" class="nav-item " (clickOutside) = "hideRequestDropDown()">
-                <!-- <button (click)= "showRequestDropDown()"  class = " d-flex bg-dark justify-content-between ml-5 rounded btn buttonStyle">
-                    <img class=" d-flex bg-dark justify-content-end rounded-circle " src="../../assets/requests.png" alt="Card image">
-                </button> -->
-                <div class="requests ml-5 " (click)= "showRequestDropDown()">
-                    <span class=" d-flex bg-dark justify-content-end rounded-circle "></span>
-                </div>
-                <div class = "requestsDropdown container bg-dark text-light rounded"  >
-                        <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests ></app-requests></div>
-                </div>
-            </li>
-            <li *ngIf = "checkLogin()" class="nav-item ml-3">
-                <button type="button"  style="height: 32px; font-size: 13px" class="btn btn-success btn-block" (click) = "Logout()" >Logout</button>
-            </li>
-
-        </ul>
-        
-
-    </div><!-- Container -->
-</nav>
-
-<nav *ngIf="!hidingFunc()"   class="navbar  navbar-dark pb-3 pt-3  col-prm ">
-    <div class = "container ">
-        <a href="#"  *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
-        <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
-        
-        <span class="navbar-toggler navbar-toggler-icon  rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15"
-        aria-expanded="false" aria-label="Toggle navigation"></span>
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <div class="collapse navbar-collapse " id="navbarSupportedContent15">
-
-            <ul class="navbar-nav d-flex">
+            <ul class="navbar-nav ">
+                <li class="nav-item" *ngIf = "!checkLogin()">
+                <a class="nav-link" href="#login" >Login</a><!--  routerLink = "/login"  routerLinkActive = "active" -->
+                </li>
                 
-                <li *ngIf = "checkLogin()" class="nav-item mt-3 mb-2" (clickOutside) = "hideRequestDropDown()">
-                    <span (click)= "showRequestDropDown()" class="text-light menuItemsHamburger">Show requests</span>
-                    <div class = "requestsDropdownHamburger container bg-dark text-light rounded" style="margin-top: 3px " >
-                            <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests [logoutKeeper] = loginSuccess ></app-requests></div>
+                
+                <li class="nav-item  mr-1" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
+                <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
+                    <input class="form-control rounded" style="height: 32px;" [class.dynamicWidthIncrease]="classId"  id="search" type="text" placeholder="Search people.." 
+                        [(ngModel)] = "search"    >
+                    <!-- <div class="input-group-append" >
+                        <button class="fa fa-search btn btn-block rounded" ></button>
+                    </div> -->
+                    <div class = "peopleDropdown container bg-dark text-light rounded" >
+                        <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
+                    </div>
+                </div>  
+                
+                </li>
+                
+                <li *ngIf = "checkLogin()" class="nav-item " (clickOutside) = "hideRequestDropDown()">
+                    <!-- <button (click)= "showRequestDropDown()"  class = " d-flex bg-dark justify-content-between ml-5 rounded btn buttonStyle">
+                        <img class=" d-flex bg-dark justify-content-end rounded-circle " src="../../assets/requests.png" alt="Card image">
+                    </button> -->
+                    <div class="requests ml-5 " (mouseover) = "showRequestsMenuDesc()" (mouseleave) = "hideRequestsMenuDesc()" (click)= "showRequestDropDown()">
+                        <span class=" d-flex bg-dark justify-content-end rounded-circle "></span>
+                    </div>
+                    <div class = " requestsDropdown bg-dark text-light rounded " 
+                        style="margin-top: 12px ; font-size: 15px ; height: 25px ; width: 170px ; text-align: center"  
+                        *ngIf = "requestsMenuDesc" >Connection requests</div>
+                    <div class = "requestsDropdown container bg-dark text-light rounded"  >
+                            <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests ></app-requests></div>
                     </div>
                 </li>
 
-                <div class="horizontalLine rounded"></div>
-
-                <li class="nav-item  mt-2 mb-2" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
-                    <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
-                        <input class="form-control rounded"  id="search" type="text" placeholder="Search people.." 
-                            [(ngModel)] = "search"    >
-                        <!-- <div class="input-group-append" >
-                            <button class="fa fa-search btn btn-block rounded" ></button>
-                        </div> -->
-                        <div style="margin-top: 42px;" class = "peopleDropdown container bg-dark text-light rounded"  >
-                            <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
+                <li *ngIf = "checkLogin()" class="nav-item " >
+                        <div class="createGroup ml-3 " (click) = "showCreateGroup()" (mouseover) = "showGroupMenuDesc()" (mouseleave) = "hideGroupMenuDesc()">
+                            <span class=" d-flex bg-dark justify-content-end rounded-circle "></span>
                         </div>
-                    </div>  
-                    
+                        <div class = " requestsDropdown bg-dark text-light rounded " 
+                        style="margin-top: 16px ; font-size: 15px ; height: 25px ; width: 170px ; text-align: center"  
+                        *ngIf = "GroupMenuDesc" >Create groups</div>
                 </li>
 
-                <div class="horizontalLine rounded"></div>
-
-                <li *ngIf = "checkLogin()" class="nav-item mt-2 ">
-                    <button type="button" class="btn btn-success  " (click) = "Logout()" >Logout</button>
+                <li *ngIf = "checkLogin()" class="nav-item ml-3">
+                    <button type="button"  style="height: 32px; font-size: 13px" class="btn btn-success btn-block" (click) = "Logout()" >Logout</button>
                 </li>
-    
-            </ul>   
 
-        </div>        
-
-    </div><!-- Container -->
-</nav>
-
-
-<div *ngIf = "!checkLogin()">
-
-    <div class = "bg-dark mt-5"  style= "min-height: 40em">
-
-        <div class="container text-light ">
-            <div class="row align-items-center justify-content-between bg-succes pt-lg-0 pt-5" style= "min-height: 40em">
-                
-                <section class = "col-lg-6 " >
-                    <p >
-                        <span class = "display-2 res_heading" >  <span style="color:#FCF81B">R</span>emember ...</span> </p>
-                    <p>
-                        <span class = " res_para para" > is a personal project developed for the sole purpose of making the task of keeping track of things easy. From creating personal reminders to getting them from groups of other people , never miss any deadlines which are either known or unknown (unless we remind you of them :P ). </span>
-                    </p>    
-                </section><!-- col -->
-                <div class = "col-lg-4 text-dark  bg-white rounded">
-                     <form [formGroup] = "signup"  class = "align-items-center pt-5 pb-5">
-                        <div class = "form-group h6">
-                            <label class="form-label">Email Address</label>
-                            <input  name = "email" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "email" class= "form-control" type="text"  placeholder ="email" class="form-control">
-                        </div>  
-                        <div class = "form-group">
-                            <label class="form-label h6">Username</label>
-                            <input  name = "username_sign" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "username_sign" class= "form-control" type="text" placeholder ="Username" class="form-control ">
-                        </div>
-                        <div class = "form-group h6">
-                            <label class="form-label">Password</label>
-                            <input  name = "password_sign" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "password_sign" class= "form-control" type="password"  placeholder ="password" class="form-control">
-                        </div>
-                        <button [disabled] = (!signup.valid) type="button" class="btn btn-success mt-5  btn-block" (click) = "SignUp()"  >Sign Up</button>
-                        <div class=" mt-5 text-danger "  *ngIf = "(signupdone === 2)" >Sorry this user name is already taken . Please try with another user name</div>
-                        <div class=" mt-5 text-danger "  *ngIf = "(signupdone === 3)" >We are having internal server problems.
-                        Please try after some time. Sorry for the inconvenience</div>
-                    </form>
-                </div><!-- col -->
+            </ul>
             
-            </div><!-- row -->
-        </div><!-- container -->
+
+        </div><!-- Container -->
+    </nav>
+
+    <nav *ngIf="!hidingFunc()" [class.fixed-top] = "!GroupMenu" class="navbar  navbar-dark pb-3 pt-3   col-prm ">
+        <div class = "container ">
+            <a href="#"  *ngIf = "!checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
+            <a href="login" *ngIf = "checkLogin()" class = "nav-brand "><span class = "h3 text-light"> Remember </span></a>
+            
+            <span class="navbar-toggler navbar-toggler-icon  rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15" aria-controls="navbarSupportedContent15"
+            aria-expanded="false" aria-label="Toggle navigation"></span>
+            <!-- <span class="navbar-toggler-icon"></span> -->
+            <div class="collapse navbar-collapse " id="navbarSupportedContent15">
+
+                <ul class="navbar-nav d-flex">
+                    
+                    <li *ngIf = "checkLogin()" class="nav-item mt-3 mb-2" (clickOutside) = "hideRequestDropDown()">
+                        <span (click)= "showRequestDropDown()" class="text-light menuItemsHamburger">Show requests</span>
+                        <div class = "requestsDropdownHamburger container bg-dark text-light rounded" style="margin-top: 3px " >
+                                <div class = "mt-2"  *ngIf = "requestDropDown"><app-requests [logoutKeeper] = loginSuccess ></app-requests></div>
+                        </div>
+                    </li>
+
+                    <div class="horizontalLine rounded"></div>
+
+                    <li *ngIf = "checkLogin()" class="nav-item mt-2 mb-2 " >
+                            <span  (click) = "showCreateGroup()"  class="text-light menuItemsHamburger">Create group</span>
+                        </li>
         
-    </div>
-    <app-login (outputLoginIdToHome)= "changedValueFromLogin($event)"></app-login>
-</div><!-- Main home div -->
-<div  [class.mt-4] = "!marginTop" [class.mt-5] = "marginTop" [class.pt-5] = "marginTop" >
-    <router-outlet *ngIf = "checkLogin()" id = "home"></router-outlet>
+                    <div class="horizontalLine rounded"></div>
+
+                    <li class="nav-item  mt-2 mb-2" *ngIf = "checkLogin()" (click) = "addClassOnFocus()"  >
+                        <div class="input-group" (clickOutside) = "removeClassOnOutsideClick()" >  
+                            <input class="form-control rounded"  id="search" type="text" placeholder="Search people.." 
+                                [(ngModel)] = "search"    >
+                            <!-- <div class="input-group-append" >
+                                <button class="fa fa-search btn btn-block rounded" ></button>
+                            </div> -->
+                            <div style="margin-top: 42px;" class = "peopleDropdown container bg-dark text-light rounded"  >
+                                <div class = "mt-2"  *ngIf = "showDropDown()"><app-connect-people [logoutKeeper] = loginSuccess [empName] = search ></app-connect-people></div>
+                            </div>
+                        </div>  
+                        
+                    </li>
+
+                    <div class="horizontalLine rounded"></div>
+
+                    <li *ngIf = "checkLogin()" class="nav-item mt-2 ">
+                        <button type="button" class="btn btn-success  " (click) = "Logout()" >Logout</button>
+                    </li>
+        
+                </ul>   
+
+            </div>        
+
+        </div><!-- Container -->
+    </nav>
 </div>
-    
+<div *ngIf = "checkLogin() && GroupMenu"  class = "text-dark mt-3 bg-white GroupsDropdown  rounded"  >
+        <div class="Close "  (click) = "hideCreateGroup()">
+        </div>
+        <div class = "mt-2" *ngIf = "GroupMenu"  ><app-create-group [logoutKeeper] = loginSuccess></app-create-group></div>
+</div>
+
+<div #division2 [class.lessBright] = "GroupMenu">
+    <div *ngIf = "!checkLogin()">
+
+        <div class = "bg-dark mt-5"  style= "min-height: 40em">
+
+            <div class="container text-light ">
+                <div class="row align-items-center justify-content-between bg-succes pt-lg-0 pt-5" style= "min-height: 40em">
+                    
+                    <section class = "col-lg-6 " >
+                        <p >
+                            <span class = "display-2 res_heading" >  <span style="color:#FCF81B">R</span>emember ...</span> </p>
+                        <p>
+                            <span class = " res_para para" > is a personal project developed for the sole purpose of making the task of keeping track of things easy. From creating personal reminders to getting them from groups of other people , never miss any deadlines which are either known or unknown (unless we remind you of them :P ). </span>
+                        </p>    
+                    </section><!-- col -->
+                    <div class = "col-lg-4 text-dark  bg-white rounded">
+                        <form [formGroup] = "signup"  class = "align-items-center pt-5 pb-5">
+                            <div class = "form-group h6">
+                                <label class="form-label">Email Address</label>
+                                <input  name = "email" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "email" class= "form-control" type="text"  placeholder ="email" class="form-control">
+                            </div>  
+                            <div class = "form-group">
+                                <label class="form-label h6">Username</label>
+                                <input  name = "username_sign" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "username_sign" class= "form-control" type="text" placeholder ="Username" class="form-control ">
+                            </div>
+                            <div class = "form-group h6">
+                                <label class="form-label">Password</label>
+                                <input  name = "password_sign" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "password_sign" class= "form-control" type="password"  placeholder ="password" class="form-control">
+                            </div>
+                            <button [disabled] = (!signup.valid) type="button" class="btn btn-success mt-5  btn-block" (click) = "SignUp()"  >Sign Up</button>
+                            <div class=" mt-5 text-danger "  *ngIf = "(signupdone === 2)" >Sorry this user name is already taken . Please try with another user name</div>
+                            <div class=" mt-5 text-danger "  *ngIf = "(signupdone === 3)" >We are having internal server problems.
+                            Please try after some time. Sorry for the inconvenience</div>
+                        </form>
+                    </div><!-- col -->
+                
+                </div><!-- row -->
+            </div><!-- container -->
+            
+        </div>
+        <app-login (outputLoginIdToHome)= "changedValueFromLogin($event)"></app-login>
+    </div><!-- Main home div -->
+    <div  [class.TopPadd] = "!GroupMenu" [class.pt-5] = "GroupMenu" >
+        <router-outlet *ngIf = "checkLogin()" id = "home"></router-outlet>
+    </div>
+
+</div>    
 <!-- <div>
 Hello world
 

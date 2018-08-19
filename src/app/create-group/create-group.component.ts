@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import { FormGroup , FormControl , Validators , FormBuilder} from '@angular/forms';
 import { CreateGroupService } from './create-group.service';
 
@@ -10,7 +10,20 @@ import { CreateGroupService } from './create-group.service';
 export class CreateGroupComponent implements OnInit {
 
   createGroup = null;
-  groupDataError = 0;
+  groupId : string = null;
+  logoutKeeper1 = null;
+  groupDataError = null;
+  @Input() 
+  set logoutKeeper(logoutKeeper : number)
+  {
+    this.logoutKeeper1  = logoutKeeper;
+    //console.log(" in logoutKeeper" + this.logoutKeeper1);
+    if(this.logoutKeeper1 == 0)
+    {
+      //console.log(" socket unsubscribed");
+      //this.socket1.unsubscribe();
+    }
+  }
   constructor(  private createGroupForm : FormBuilder , private createGroupService : CreateGroupService) { 
     this.createGroup = null;
     
@@ -24,21 +37,31 @@ export class CreateGroupComponent implements OnInit {
   }
 
 
-  showGroupnameError(data)
+  setGroupId(data)
   {
-    this.groupDataError = data;
+    this.groupId = data;
+    localStorage.setItem('GroupId' , this.groupId);
   }
 
   createGroups()
   {
       this.createGroupService.GroupGenerate(this.createGroup.value)
-        .subscribe(async valid =>{
-          await this.showGroupnameError(valid)
+        .subscribe(async Id =>{
+          await this.setGroupId(Id)
         } , grouperror => this.groupDataError = grouperror)
   }
 
   disableError()
   {
-    this.groupDataError = 0;
+    this.groupDataError = null;
+  }
+
+  showScreen()
+  {
+    if(localStorage.getItem('GroupId') != null)
+    {
+      return false;
+    }
+    return true;
   }
 }

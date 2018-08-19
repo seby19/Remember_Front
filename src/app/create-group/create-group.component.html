@@ -1,21 +1,42 @@
-<div class = " col-lg-4 text-dark  bg-white rounded">
-  <form [formGroup] = "createGroup"  class = " align-items-center pt-5 pb-5">
-     <div class=" res_para ">
-       Groups are the major source of information . Choose all the connections who are appropriate for the 
-       posts in this group .
-     </div><br><br>
-     <div class = "form-group h6">
-         <label class="form-label">Name</label>
-         <input  name = "groupName" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupName" class= "form-control" type="text"  placeholder ="Group name" class="form-control">
-     </div>  
-     <div class = "form-group">
-         <label class="form-label h6">Description</label>
-         <input  name = "groupDesc" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupDesc" class= "form-control" type="text" placeholder ="Describe" class="form-control ">
-     </div>
-      
-     <button [disabled] = (!createGroup.valid) type="button" class="btn btn-success mt-5 " (click) = "createGroups()"  >Create</button>
 
-     <div class=" mt-5 text-danger "  *ngIf = "(groupDataError === 3)" >We are having internal server problems.
-     Please try after some time. Sorry for the inconvenience</div>
- </form>
-</div><!-- col -->
+<div *ngIf = "showScreen()">
+    <div class="container res_para " style="margin-top: 20px" ><h5> Create new Group </h5></div>
+    <div class="horizontalLine rounded"></div>
+
+    <div class=" res_para container" style="font-size: 15px ; width: 100% ; margin-top: 3em" >
+            Groups are the major source of information . Choose all the connections who are appropriate for the 
+            posts in this group .
+            
+    </div><br><br>
+    <div class = " container text-dark  bg-white rounded" style="width: 100%" >
+    <form [formGroup] = "createGroup"  class = " align-items-center pt-2 pb-5">
+
+        <div class = "form-group h6">
+            <label class="form-label">Name</label>
+            <input  name = "groupName" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupName" class= "form-control" type="text"  placeholder ="Group name" class="form-control">
+        </div>  
+        <div class = "form-group">
+            <label class="form-label h6">Description</label>
+            <input  name = "groupDesc" (keydown) = "disableError()"  (click) = "disableError()" formControlName = "groupDesc" class= "form-control" type="text" placeholder ="Describe" class="form-control ">
+        </div>
+        
+        <button [disabled] = (!createGroup.valid) type="button" class="btn btn-success mt-3 " (click) = "createGroups()"  >Create</button>
+
+        <div class=" mt-5 text-danger "  *ngIf = "(groupDataError === 3)" >We are having internal server problems.
+        Please try after some time. Sorry for the inconvenience</div>
+    </form>
+    </div><!-- col -->
+</div>
+<div [class.card-columns]="columnView" #reactivity *ngIf = "!showScreen()">
+    <div *ngFor = " let ppl of peoples_list ">
+            <div class = "media mb-2 rounded " *ngIf = "showEmp(ppl.username)">
+                <img [class.superSmall]="superSmall" class=" mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
+                <div class = " d-flex align-self-center justify-content-between media-body ">
+                    
+                    <h4 class = "card-title fntDynamicSize" > {{ppl.username}} </h4>
+                    <!-- <a href="addConnection(1)"  [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded-circle"><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></a> -->
+                    <button (click) = "addConnection(ppl)"  [class.bg-white]="!colorInvert" [class.bg-dark]="colorInvert" [class.extraSmall]="superSmall" class = " d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></button>
+                </div>	
+            </div>
+    </div>
+</div>
