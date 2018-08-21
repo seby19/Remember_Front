@@ -1,6 +1,11 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { FormGroup , FormControl , Validators , FormBuilder} from '@angular/forms';
 import { CreateGroupService } from './create-group.service';
+import { GetfriendsService } from '../friends/getfriends.service';
+import { LoggedInCheckService } from '../logged-in-check.service';
+import { JwtUserData } from "../JwtUserData";
+
+
 
 @Component({
   selector: 'app-create-group',
@@ -13,6 +18,9 @@ export class CreateGroupComponent implements OnInit {
   groupId : string = null;
   logoutKeeper1 = null;
   groupDataError = null;
+  peoples_list = null;
+  errorMsg = null;
+  columnView = false;
   @Input() 
   set logoutKeeper(logoutKeeper : number)
   {
@@ -24,7 +32,7 @@ export class CreateGroupComponent implements OnInit {
       //this.socket1.unsubscribe();
     }
   }
-  constructor(  private createGroupForm : FormBuilder , private createGroupService : CreateGroupService) { 
+  constructor(  private userLog :LoggedInCheckService  , private friends : GetfriendsService  , private createGroupForm : FormBuilder , private createGroupService : CreateGroupService) { 
     this.createGroup = null;
     
   }
@@ -34,8 +42,23 @@ export class CreateGroupComponent implements OnInit {
       groupName : [null , Validators.required],
       groupDesc : [null , Validators.required]
     });
+
+    this.friends.getFriends().subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
+      localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
+    } , 
+      error => {this.errorMsg = error;
+      this.peoples_list = null;
+      this.errorMsg = null;
+      this.columnView = true;
+      this.userLog.Logout();
+    });
+
   }
 
+  setFriends_list(data)
+  {
+  	this.peoples_list = data;
+  }
 
   setGroupId(data)
   {
@@ -60,8 +83,21 @@ export class CreateGroupComponent implements OnInit {
   {
     if(localStorage.getItem('GroupId') != null)
     {
+      console.log("truefalse showscreen");
       return false;
     }
+    console.log("true showscreen");
     return true;
+  }
+
+  checkFriendsList(){
+    if(this.peoples_list[0])
+    {
+      console.log( " peoples list " + this.peoples_list[0])
+      console.log("true checkfriends");
+      return true;
+    }
+    console.log("false checkfriends");
+    return false;
   }
 }
