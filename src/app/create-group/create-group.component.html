@@ -34,8 +34,16 @@
             Add all the friends you need to be a part of this group. If you miss someone now they can still
             be added later.
     </div>
-    <input style="margin-top: 3em ;" class="form-control searchBox " [class.dynamicWidthIncrease]="classId"  id=1 type="text" placeholder="Search.." 
-       [(ngModel)] = "search" (focus) = "addClass()" (blur)="addClass()" >
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <input style="margin-top: 3em ;" class="form-control searchBox " [class.dynamicWidthIncrease]="classId"  id=1 type="text" placeholder="Search.." 
+        [(ngModel)] = "search" (focus) = "addClass()" (blur)="addClass()" >
+        </div>
+        <div>
+            <button style="margin-top: 3em ;" (click) = "closeView()" class = "bg-success text-white extraSmall  mr-4 rounded btn ">Done</button>
+        </div>
+    </div>
     <div style="margin-top: 3em ; margin-bottom: 3em ;" class="FriendsList">
         <div *ngFor = " let ppl of peoples_list ">
                 <!-- *ngIf = "showEmp(ppl.username)" -->
@@ -44,7 +52,7 @@
                     <div class = " d-flex align-self-center justify-content-between media-body ">
                         
                         <h4 class = "card-title fntDynamicSize" > {{ppl.username}} </h4>
-                        <button (click) = "addConnection(ppl)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Connect_two.png" alt="Card image"></button>
+                        <button (click) = "addPerson(ppl)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Add-3.png" alt="Card image"></button>
                     </div>	
                 </div>
         </div>
@@ -53,6 +61,6 @@
 
 <div  *ngIf = "!showScreen() && !checkFriendsList()">
     <div class=" res_para container" style="font-size: 15px ; width: 100% ; margin-top: 3em ; margin-bottom: 3em" >
-        You have made no connections with people . Please connect and enjoy sharing info in groups with them.
+        You have made no further connections with people . Please connect and enjoy sharing info in groups with them.
     </div>
 </div>

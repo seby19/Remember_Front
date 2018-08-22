@@ -117,7 +117,7 @@
 <div *ngIf = "checkLogin() && GroupMenu"  class = "text-dark mt-3 bg-white GroupsDropdown  rounded"  >
         <div class="Close "  (click) = "hideCreateGroup()">
         </div>
-        <div class = "mt-2" *ngIf = "GroupMenu"  ><app-create-group [logoutKeeper] = loginSuccess></app-create-group></div>
+        <div class = "mt-2" *ngIf = "GroupMenu"  ><app-create-group (outputDoneToHome) = "closeEvent($event)" [logoutKeeper] = loginSuccess></app-create-group></div>
 </div>
 
 <div #division2 [class.lessBright] = "GroupMenu">

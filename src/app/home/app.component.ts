@@ -244,4 +244,10 @@ export class AppComponent implements OnInit{
 			return true;
 		}
 	}
+	closeEvent(value : number){
+		if(value == 1)
+		{
+			this.hideCreateGroup();
+		}
+	}
 }

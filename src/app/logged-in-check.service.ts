@@ -27,6 +27,7 @@ export class LoggedInCheckService implements OnInit {
   Logout(){
     localStorage.removeItem( 'Authorization' );
     localStorage.removeItem( 'username' );
+    localStorage.removeItem( 'GroupId' );
     this.router.navigate(['/'] );
   }
 }

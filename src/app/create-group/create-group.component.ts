@@ -1,4 +1,4 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit , Input ,  EventEmitter , Output} from '@angular/core';
 import { FormGroup , FormControl , Validators , FormBuilder} from '@angular/forms';
 import { CreateGroupService } from './create-group.service';
 import { GetfriendsService } from '../friends/getfriends.service';
@@ -21,6 +21,11 @@ export class CreateGroupComponent implements OnInit {
   peoples_list = null;
   errorMsg = null;
   columnView = false;
+  internalSocket = null;
+
+  @Output() outputDoneToHome = new EventEmitter<number>();
+
+
   @Input() 
   set logoutKeeper(logoutKeeper : number)
   {
@@ -43,16 +48,46 @@ export class CreateGroupComponent implements OnInit {
       groupDesc : [null , Validators.required]
     });
 
-    this.friends.getFriends().subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
-      localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
-    } , 
-      error => {this.errorMsg = error;
+    this.internalSocket = this.friends.initializeWebSocketConnection().subscribe(async userData =>{
+      await this.addToFriends_list(userData.body);
+    },
+    error => {this.errorMsg = error;
       this.peoples_list = null;
       this.errorMsg = null;
       this.columnView = true;
       this.userLog.Logout();
-    });
+      });
 
+    if(!this.showScreen()){
+      this.createGroupService.getFriendsToAdd( localStorage.getItem('GroupId')).subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
+        localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
+      } , 
+        error => {this.errorMsg = error;
+        this.peoples_list = null;
+        this.errorMsg = null;
+        this.columnView = true;
+        this.userLog.Logout();
+      });
+    }else{
+      this.friends.getFriends().subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
+        localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
+      } , 
+        error => {this.errorMsg = error;
+        this.peoples_list = null;
+        this.errorMsg = null;
+        this.columnView = true;
+        this.userLog.Logout();
+      });
+    }
+
+    
+  }
+
+  addToFriends_list(data)
+  { 
+    var data1 = data.split(" ");
+    let jwtUser = new JwtUserData(data1[0] , data1[1]);
+    this.peoples_list.push(jwtUser);
   }
 
   setFriends_list(data)
@@ -64,6 +99,15 @@ export class CreateGroupComponent implements OnInit {
   {
     this.groupId = data;
     localStorage.setItem('GroupId' , this.groupId);
+    // this.createGroupService.getFriendsToAdd( localStorage.getItem('GroupId')).subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
+    //   localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
+    // } , 
+    //   error => {this.errorMsg = error;
+    //   this.peoples_list = null;
+    //   this.errorMsg = null;
+    //   this.columnView = true;
+    //   this.userLog.Logout();
+    // });
   }
 
   createGroups()
@@ -83,21 +127,26 @@ export class CreateGroupComponent implements OnInit {
   {
     if(localStorage.getItem('GroupId') != null)
     {
-      console.log("truefalse showscreen");
       return false;
+
     }
-    console.log("true showscreen");
     return true;
   }
 
   checkFriendsList(){
     if(this.peoples_list[0])
     {
-      console.log( " peoples list " + this.peoples_list[0])
-      console.log("true checkfriends");
       return true;
     }
-    console.log("false checkfriends");
     return false;
+  }
+
+  addPerson(ppl){
+    this.peoples_list.splice(this.peoples_list.indexOf(ppl) , 1);
+    this.createGroupService.addPerson(ppl , localStorage.getItem('GroupId') );
+  }
+
+  closeView(){
+    this.outputDoneToHome.emit(1);
   }
 }
