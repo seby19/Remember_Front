@@ -38,16 +38,15 @@
     <div class="d-flex justify-content-between">
         <div>
             <input style="margin-top: 3em ;" class="form-control searchBox " [class.dynamicWidthIncrease]="classId"  id=1 type="text" placeholder="Search.." 
-        [(ngModel)] = "search" (focus) = "addClass()" (blur)="addClass()" >
+        [(ngModel)] = "search"  >
         </div>
         <div>
             <button style="margin-top: 3em ;" (click) = "closeView()" class = "bg-success text-white extraSmall  mr-4 rounded btn ">Done</button>
         </div>
     </div>
     <div style="margin-top: 3em ; margin-bottom: 3em ;" class="FriendsList">
-        <div *ngFor = " let ppl of peoples_list ">
-                <!-- *ngIf = "showEmp(ppl.username)" -->
-                <div class = "media mb-2 rounded " >  
+        <div *ngFor = " let ppl of peoples_list " >
+                <div class = "media mb-2 rounded " *ngIf = "showEmp(ppl.username)">  
                     <img [class.superSmall]="superSmall" class="  extraSmall mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
                     <div class = " d-flex align-self-center justify-content-between media-body ">
                         

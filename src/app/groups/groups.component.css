@@ -1,0 +1,88 @@
+
+
+@media (min-width: 800px)
+{
+   .friendsIcon{
+   width : 7em;	
+   }
+
+   .connectIcon{
+       width : 4em;	
+   }		
+}
+
+
+@media (max-width: 799px)
+{
+   .friendsIcon{
+   width : 5em;	
+   }
+
+   .connectIcon{
+       width : 3em;	
+   }
+}
+.dynamicWidthIncrease{
+   border-color : black ; 
+   width : 20em;
+}
+
+@media (max-width: 500px) { 
+
+   .fntDynamicSize{
+       font-size : 20px;
+               
+   }
+
+
+}
+
+.superSmall{
+   width : 30px;	
+}
+
+.extraSmall{
+   width : 60px;
+}
+
+@media ( max-width: 245px)
+{
+   .friendsIcon{
+   width : 5px;	
+   }
+
+   .connectIcon{
+       width : 5px;	
+   }
+
+   .fntDynamicSize{
+       
+       font-size : 10px;
+               
+   }
+}
+@media ( max-width: 400px)
+{
+    .FriendsList{
+        margin-left: 2em ;
+        /* margin-right: 6em; */
+    }
+
+    .searchBox{
+        border-color : grey ; 
+        width : 15em;
+        margin-left: 1em;
+    }
+}
+@media ( min-width: 401px)
+{
+    .FriendsList{
+        margin-left: 3em ;
+        margin-right: 5em;
+    }
+    .searchBox{
+        border-color : grey ; 
+        width : 13em;
+        margin-left: 4em;
+    }
+}

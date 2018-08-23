@@ -4,7 +4,8 @@ import { CreateGroupService } from './create-group.service';
 import { GetfriendsService } from '../friends/getfriends.service';
 import { LoggedInCheckService } from '../logged-in-check.service';
 import { JwtUserData } from "../JwtUserData";
-
+import { GroupData } from '../GroupData';
+import { RequestsService } from "../requests/requests.service";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CreateGroupComponent implements OnInit {
   peoples_list = null;
   errorMsg = null;
   columnView = false;
-  internalSocket = null;
+  socket1 = null;
+  search : string = null;
 
   @Output() outputDoneToHome = new EventEmitter<number>();
 
@@ -37,19 +39,22 @@ export class CreateGroupComponent implements OnInit {
       //this.socket1.unsubscribe();
     }
   }
-  constructor(  private userLog :LoggedInCheckService  , private friends : GetfriendsService  , private createGroupForm : FormBuilder , private createGroupService : CreateGroupService) { 
+  constructor( private requestsService : RequestsService , private userLog :LoggedInCheckService  , private friends : GetfriendsService  , private createGroupForm : FormBuilder , private createGroupService : CreateGroupService) { 
     this.createGroup = null;
     
   }
 
   ngOnInit() {
+
+    this.search  = null;
+
     this.createGroup = this.createGroupForm.group({
       groupName : [null , Validators.required],
       groupDesc : [null , Validators.required]
     });
 
-    this.internalSocket = this.friends.initializeWebSocketConnection().subscribe(async userData =>{
-      await this.addToFriends_list(userData.body);
+    this.socket1  = this.requestsService.initializeWebSocketConnection().subscribe(async userData =>{
+      await this.addToFriends_list(JSON.parse(userData.body));
     },
     error => {this.errorMsg = error;
       this.peoples_list = null;
@@ -57,6 +62,7 @@ export class CreateGroupComponent implements OnInit {
       this.columnView = true;
       this.userLog.Logout();
       });
+
 
     if(!this.showScreen()){
       this.createGroupService.getFriendsToAdd( localStorage.getItem('GroupId')).subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
@@ -83,11 +89,24 @@ export class CreateGroupComponent implements OnInit {
     
   }
 
+  showEmp(name){
+    if(this.search == null || this.search == "")
+  	{
+  		return true;	
+  	}
+  	else if( this.search != ""){
+  		if((name.toLowerCase()).includes(this.search.toLowerCase()))
+  		{
+  			return true;
+  		}
+  		return false;
+  	}
+  }
   addToFriends_list(data)
   { 
-    var data1 = data.split(" ");
-    let jwtUser = new JwtUserData(data1[0] , data1[1]);
-    this.peoples_list.push(jwtUser);
+    //var data1 = data.split(" ");
+    //let jwtUser = new JwtUserData(data1[0] , data1[1]);
+    this.peoples_list.push(data);
   }
 
   setFriends_list(data)
@@ -95,9 +114,9 @@ export class CreateGroupComponent implements OnInit {
   	this.peoples_list = data;
   }
 
-  setGroupId(data)
+  setGroupId(group)
   {
-    this.groupId = data;
+    this.groupId = group.id; // Emit an event with this as parameter to groups component
     localStorage.setItem('GroupId' , this.groupId);
     // this.createGroupService.getFriendsToAdd( localStorage.getItem('GroupId')).subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
     //   localStorage.setItem( 'Authorization' , 'Token ' + friend_list.headers.get("Authorization"));
@@ -113,8 +132,8 @@ export class CreateGroupComponent implements OnInit {
   createGroups()
   {
       this.createGroupService.GroupGenerate(this.createGroup.value)
-        .subscribe(async Id =>{
-          await this.setGroupId(Id)
+        .subscribe(async group =>{
+          await this.setGroupId(group)
         } , grouperror => this.groupDataError = grouperror)
   }
 
@@ -134,7 +153,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   checkFriendsList(){
-    if(this.peoples_list[0])
+    if(this.peoples_list != ""  )
     {
       return true;
     }

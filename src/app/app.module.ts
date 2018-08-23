@@ -32,7 +32,9 @@ import {StompConfig, StompService} from '@stomp/ng2-stompjs';
 import * as SockJS from 'sockjs-client';
 import { RequestsComponent } from './requests/requests.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
-import { CreateGroupService } from './create-group/create-group.service'
+import { CreateGroupService } from './create-group/create-group.service';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupsService } from './groups/groups.service'
 
 export function socketProvider() {
   //return new SockJS('http://localhost:8080/remember_server/socket' + '?Authorization=' + localStorage.getItem('Authorization') );
@@ -69,11 +71,11 @@ const stompConfig: StompConfig = {
 
 @NgModule({
   declarations: [   
-    AppComponent , routingComponents, LoginComponent, LoginHomeComponent, FriendsComponent, ConnectPeopleComponent, RequestsComponent, CreateGroupComponent 
+    AppComponent , routingComponents, LoginComponent, LoginHomeComponent, FriendsComponent, ConnectPeopleComponent, RequestsComponent, CreateGroupComponent, GroupsComponent 
   ],
   imports: [     
     BrowserModule , HttpModule  , AppRoutingModule , FormsModule , ReactiveFormsModule  , HttpClientModule , ClickOutsideModule],
-  providers: [ CreateGroupService ,RequestsService ,SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
+  providers: [ GroupsService , CreateGroupService ,RequestsService ,SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
                       ConnectPeopleService ,
                       StompService , 
                       {

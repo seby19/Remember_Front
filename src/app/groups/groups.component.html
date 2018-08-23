@@ -1,0 +1,11 @@
+<div style="margin-top: 3em ; margin-bottom: 3em ;" class="FriendsList">
+  <div *ngFor = " let grp of groups_list " >
+          <div class = "media mb-2 rounded " >  
+              <img [class.superSmall]="superSmall" class="  extraSmall mr-3 img-fluid friendsIcon" src="../../assets/People-three.png" alt="Card image">
+              <div class = " d-flex align-self-center  media-body ">
+                  <h4  > {{grp.description}} </h4>
+                  <button (click) = "addPerson(grp)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Add-3.png" alt="Card image"></button>
+              </div>	
+          </div>
+  </div>
+</div>
