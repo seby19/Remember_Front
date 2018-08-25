@@ -1,0 +1,14 @@
+
+  group.groupName is {{ActivedGroup.groupName}}
+  <div *ngFor = " let post of posts " >
+    <div class = "media mb-2 rounded " (click) = "showGroup(grp)" style="cursor: pointer;" >  
+        <!-- <img [class.superSmall]="superSmall" class="  superSmall mr-3 img-fluid friendsIcon" src="../../assets/groups2.png" alt="Card image"> -->
+        <div class = " d-flex align-self-center  media-body ">
+            <h4> post is : {{post.content}} </h4>
+            <!-- <button (click) = "addPerson(grp)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Add-3.png" alt="Card image"></button> -->
+        </div>	
+    </div>
+  </div>
+
+  <input  name = "groupName"  class= "form-control" type="text"  placeholder ="Post something" >
+

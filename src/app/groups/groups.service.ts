@@ -31,6 +31,18 @@ export class GroupsService {
 		
   }
 
-
+  internalIntializeWebSocket(){
+    const headers = new Headers();
+		  headers.append('Content-Type', 'text/plain');
+		  headers.append('Authorization' , localStorage.getItem('Authorization'));
+		  
+		  //This is used to subscribe to you're self
+		  //this.messages2 = this.stompService.subscribe('/user/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
+	  
+	  
+		  this.messages = this.stompService.subscribe("/broker/internal/" + localStorage.getItem("username").toLowerCase() +'/queue/newGroup'   , {headers : headers});
+		  console.log("in socket");
+		  return this.messages;
+  }
 
 }

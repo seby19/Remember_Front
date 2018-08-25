@@ -3,8 +3,10 @@
 
 <div class="container">
 	<!-- <app-create-group></app-create-group> -->
-	<app-groups></app-groups>
-	<app-friends></app-friends>
+	<app-groups (GroupSelected) = "sendInput($event)"></app-groups>
+	<app-posts *ngIf ="showPosts()" [ActiveGroup] = "activatedGroup"  ></app-posts>
+	<router-outlet *ngIf ="showPosts()" ></router-outlet>
+	<app-friends ></app-friends>
 	 <app-requests ></app-requests>
 	<app-connect-people></app-connect-people> 
 </div>

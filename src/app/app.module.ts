@@ -25,7 +25,7 @@ import { ConnectPeopleComponent } from './connect-people/connect-people.componen
 import { ConnectPeopleService } from './connect-people/connect-people.service';
 import { ClickOutsideModule } from 'ng4-click-outside';
 import { RequestsService } from "./requests/requests.service";
-
+import { PostsService } from './posts/posts.service';
 
 import {StompConfig, StompService} from '@stomp/ng2-stompjs';
 
@@ -34,7 +34,8 @@ import { RequestsComponent } from './requests/requests.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { CreateGroupService } from './create-group/create-group.service';
 import { GroupsComponent } from './groups/groups.component';
-import { GroupsService } from './groups/groups.service'
+import { GroupsService } from './groups/groups.service';
+import { PostsComponent } from './posts/posts.component'
 
 export function socketProvider() {
   //return new SockJS('http://localhost:8080/remember_server/socket' + '?Authorization=' + localStorage.getItem('Authorization') );
@@ -71,11 +72,11 @@ const stompConfig: StompConfig = {
 
 @NgModule({
   declarations: [   
-    AppComponent , routingComponents, LoginComponent, LoginHomeComponent, FriendsComponent, ConnectPeopleComponent, RequestsComponent, CreateGroupComponent, GroupsComponent 
+    AppComponent , routingComponents, LoginComponent, LoginHomeComponent, FriendsComponent, ConnectPeopleComponent, RequestsComponent, CreateGroupComponent, GroupsComponent, PostsComponent 
   ],
   imports: [     
     BrowserModule , HttpModule  , AppRoutingModule , FormsModule , ReactiveFormsModule  , HttpClientModule , ClickOutsideModule],
-  providers: [ GroupsService , CreateGroupService ,RequestsService ,SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
+  providers: [ PostsService , GroupsService , CreateGroupService ,RequestsService ,SignUpService , LoginService , AuthenticationGuard , LoggedInCheckService , JwttokenService  , GetfriendsService ,
                       ConnectPeopleService ,
                       StompService , 
                       {

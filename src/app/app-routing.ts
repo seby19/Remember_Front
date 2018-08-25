@@ -3,10 +3,10 @@ import { AppComponent }   from './home/app.component';
 import { RouterModule , Routes} from '@angular/router';
 import { LoginHomeComponent } from './login-home/login-home.component';
 import { AuthenticationGuard } from './authentication.guard';
-
+import { PostsComponent } from './posts/posts.component';
 
 const routes : Routes = [
-  					{path : 'login' , canActivate : [AuthenticationGuard] ,component : LoginHomeComponent }/*
+					  {path : 'login' , canActivate : [AuthenticationGuard] ,component : LoginHomeComponent }/*
   					{path : '' , redirectTo : '/view1' , pathMatch: 'full'},
   					{path : '**' , component : PageNotFound}*/
   					];

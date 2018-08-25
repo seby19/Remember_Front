@@ -31,7 +31,14 @@ export class CreateGroupService {
 		return Observable.throw(error || "Server Error");
 		
   }
-
+	InternalsendGroup(group)
+	{
+		const headers = new Headers();
+			headers.append('Content-Type', 'text/plain');
+		  headers.append('Authorization' , localStorage.getItem('Authorization'));
+		this.stompService.publish("/broker/internal/" + localStorage.getItem("username").toLowerCase() +'/queue/newGroup'   , group.id + " "
+					+ group.groupDesc + " " + group.adminId + " " + group.groupName ,  {headers : headers});
+	}
   getFriendsToAdd(groupId)
 	{
 		const headers = new Headers();
@@ -52,7 +59,7 @@ export class CreateGroupService {
 		  //this.messages2 = this.stompService.subscribe('/user/' + localStorage.getItem("username").toLowerCase() +'/queue/showFriends' , {headers : headers});
 	  
 	  
-		  this.messages = this.stompService.subscribe('/broker/internal/' + localStorage.getItem("username").toLowerCase() +'/queue/showConnections' , {headers : headers});
+		  this.messages = this.stompService.subscribe('/broker/' + localStorage.getItem("username").toLowerCase() +'/queue/newGroup' , {headers : headers});
 		  console.log("in socket");
 		  return this.messages;
 		  //this.subscription = this.messages.subscribe(this.on_next);

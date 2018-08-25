@@ -27,7 +27,6 @@ export class CreateGroupComponent implements OnInit {
 
   @Output() outputDoneToHome = new EventEmitter<number>();
 
-
   @Input() 
   set logoutKeeper(logoutKeeper : number)
   {
@@ -127,6 +126,8 @@ export class CreateGroupComponent implements OnInit {
     //   this.columnView = true;
     //   this.userLog.Logout();
     // });
+
+    this.createGroupService.InternalsendGroup(group);
   }
 
   createGroups()
