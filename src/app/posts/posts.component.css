@@ -1,0 +1,23 @@
+
+.horizontalLine{
+	background-color:rgb(162, 221, 247);	
+	height: 1px;
+	width: 100%;
+}
+
+.bodyPost{
+	background-color: rgb(144, 205, 255);	
+	/* background-color: rgb(104, 206, 250); */
+	display: inline-block;
+	/* border : 0.5px solid rgb(162, 221, 247);
+    border-radius : 7px; */
+}
+
+.mybodyPost{
+	
+	/* background-color:rgb(255, 138, 138); */
+	/* background-color: rgb(104, 206, 250);	 */
+	background-color: rgb(104, 250, 128);	
+	/* background-color: rgb(153, 161, 163); */
+	display: inline-block;	
+}

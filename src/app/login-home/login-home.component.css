@@ -1,0 +1,36 @@
+.peopleDropdown{
+    max-height: 500px;
+    /* position: fixed;*/
+    position: absolute;
+    z-index: 1;
+    overflow-y: auto;
+
+}
+
+.topPadd{
+    padding-top: 2em;
+}
+
+.topPadd2{
+    padding-top: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+} 
+
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+.scroller{
+    background-clip : content-box;
+    background-color : rgba(0, 0, 0, .4);
+    border : 1px solid rgba(85, 85, 85, .6);
+    border-radius : 7px;
+    position : absolute;
+    right: 20%;
+    transition : width 250ms;
+    width : 5px;
+}

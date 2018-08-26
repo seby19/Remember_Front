@@ -1,8 +1,13 @@
-.searchBox{
-	 border-color : grey ; 
-	 width : 15em;
+
+.searchBox1{
+	border-color : grey ; 
+	width : 15em;
 }
 
+.searchBox2{
+	border-color : grey ; 
+	width : 100%;
+}
 
 
 .dynamicWidthIncrease{
@@ -25,6 +30,22 @@
 	}		
 }
 
+.friendsIcon2{
+	width : 4em;	
+}
+
+@media (min-width : 1001px)
+{
+	.fntDynamicSize2{
+		font-size : 20px;
+	}
+}
+@media (max-width : 1000px) {
+	.fntDynamicSize2{
+		font-size : 15px;
+	}		
+}
+
 
 @media (max-width: 500px) { 
 
@@ -34,3 +55,4 @@
 	}
 
 }
+

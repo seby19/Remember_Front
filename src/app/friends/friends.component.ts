@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ElementRef , ViewChild} from '@angular/core';
 import { GetfriendsService } from './getfriends.service';
 import { HostListener } from "@angular/core";
 import { LoggedInCheckService } from '../logged-in-check.service';
@@ -19,6 +19,12 @@ export class FriendsComponent implements OnInit {
     columnView :boolean = true;
     socket1  = null;
     internalSocket = null;
+    searchBox1 = true;
+    searchBox2 = false;
+    sidePanelMode = false;
+    @ViewChild('reactivity') elementView: ElementRef;
+
+
   constructor(private requestsService : RequestsService , private friends : GetfriendsService ,  private userLog :LoggedInCheckService ) { 
   		this.friends_list = null;
   		this.errorMsg = null;
@@ -26,6 +32,8 @@ export class FriendsComponent implements OnInit {
 
   
   ngOnInit() {
+      this.onResize(null);
+
   		this.friends_list = null;
   		this.errorMsg = null;
   		this.friends.getFriends().subscribe(async friend_list => { await this.setFriends_list(friend_list.json());
@@ -100,17 +108,31 @@ export class FriendsComponent implements OnInit {
 
   addClass()
   {
-  	this.classId = (this.classId == true) ? false : true ;
+    //this.classId = (this.classId == true) ? false : true ;
+    if(this.classId == false && this.searchBox1 == true)
+    {
+      this.classId = true;
+    }
+    else
+    {
+      this.classId = false;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
       onResize(event?) {
-      if(window.innerWidth >= 800)
+      if(window.innerWidth >= 800 && this.elementView.nativeElement.offsetWidth >= 335)
       {
-        this.columnView = true;  
+        this.columnView = true;
+        this.searchBox1 = true;
+        this.searchBox2 = false;  
+        this.sidePanelMode = false;
       }
       else{
         this.columnView = false;    
+        this.searchBox1 = false;
+        this.searchBox2 = true;
+        this.sidePanelMode = true;
       }
       
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit , Input , EventEmitter , Output } from '@angular/core';
+import { Component, OnInit , Input , EventEmitter , Output  ,ElementRef , ViewChild} from '@angular/core';
 import { GroupsService } from './groups.service';
 import { LoggedInCheckService } from '../logged-in-check.service';
 import { GroupData } from '../GroupData';
@@ -14,18 +14,24 @@ export class GroupsComponent implements OnInit {
 
   @Output() GroupSelected = new EventEmitter<number>();
 
-  
+  @ViewChild('reactivity') elementView: ElementRef;
+
   groups_list = null;
   columnView = true;
   errorMsg = null;
+  extraSmall = true;
+  superSmall = false;
   constructor( private createGroupService  : CreateGroupService ,private groupService : GroupsService , private userLog : LoggedInCheckService) { 
     this.groups_list = null;
     this.columnView = true;
-
+    this.extraSmall = false;
+    this.superSmall = true;
   }
 
   
   ngOnInit() {
+
+    this.onResize(null);
 
     this.groupService.internalIntializeWebSocket().subscribe(async grpData =>{
       await this.addToGroups_list(grpData.body);
@@ -84,12 +90,16 @@ export class GroupsComponent implements OnInit {
   }
   @HostListener('window:resize', ['$event'])
       onResize(event?) {
-      if(window.innerWidth >= 800)
+      if(window.innerWidth >= 800 && this.elementView.nativeElement.offsetWidth >= 335)
       {
-        this.columnView = true;  
+        this.columnView = true; 
+        this.extraSmall = true;
+        this.superSmall = false; 
       }
       else{
-        this.columnView = false;    
+        this.columnView = false; 
+        this.extraSmall = false;
+        this.superSmall = true;   
       }
       
   }

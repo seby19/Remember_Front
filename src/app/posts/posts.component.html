@@ -1,14 +1,24 @@
+<div style=" background-color:white ;width: 68% ; margin-left: 15% ; margin-bottom: 5px ; margin-top: 65px" class = "fixed-top ">
+    <h3>{{ActivedGroup.groupName}} </h3>
+</div> 
+<div  style="width: 68% ; margin-left: 15% ; margin-bottom: 5px ; margin-top: 107px" class="fixed-top horizontalLine rounded mb-4"></div>
 
-  group.groupName is {{ActivedGroup.groupName}}
+<div  style="margin-top: 50px ;" #reactivity>
   <div *ngFor = " let post of posts " >
-    <div class = "media mb-2 rounded " (click) = "showGroup(grp)" style="cursor: pointer;" >  
+    <div class = "media mb-2 rounded "  >  
         <!-- <img [class.superSmall]="superSmall" class="  superSmall mr-3 img-fluid friendsIcon" src="../../assets/groups2.png" alt="Card image"> -->
-        <div class = " d-flex align-self-center  media-body ">
-            <h4> post is : {{post.content}} </h4>
+        <div *ngIf = "!myPost(post.username)" class = " media-body ">
+            <div class = " pr-2 pl-2 bodyPost rounded  " ><p><b> {{post.username}} </b><br>
+             {{post.content}} </p></div>
+            <!-- <button (click) = "addPerson(grp)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Add-3.png" alt="Card image"></button> -->
+        </div>
+        <div  *ngIf = "myPost(post.username)" class = " d-flex justify-content-end mr-4 media-body ">
+            <div class = " pr-2 pl-2 mybodyPost  rounded " ><p><b> {{post.username}} </b><br>
+             {{post.content}} </p></div>
             <!-- <button (click) = "addPerson(grp)" class = "bg-white extraSmall d-flex justify-content-between mr-4 rounded btn "><img class=" d-flex justify-content-end rounded-circle connectIcon" src="../../assets/Add-3.png" alt="Card image"></button> -->
         </div>	
     </div>
   </div>
-
-  <input  name = "groupName"  class= "form-control" type="text"  placeholder ="Post something" >
+<input [(ngModel)] = "postData" (keypress) = "sendPost($event , ActivedGroup )" style="width: 65% ; margin-left: 15% ; margin-bottom: 5px" name = "groupName"  class= "fixed-bottom form-control" type="text"  placeholder ="Post something" >
+</div>
 

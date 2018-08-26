@@ -37,12 +37,24 @@
 
 }
 
-.superSmall{
-   width : 30px;	
+@media ( min-width : 800px){
+    .superSmall{
+        width : 50px;	
+     }
 }
+@media (max-width: 799px){
+    .superSmall{
+        width : 30px;	
+     }
+}
+
 
 .extraSmall{
    width : 60px;
+}
+
+.reallySmall{
+    width: 15px;
 }
 
 @media ( max-width: 245px)

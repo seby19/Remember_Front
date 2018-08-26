@@ -1,12 +1,23 @@
 
+<div  class="row" style="height: 550px;">
+	<div class="col-2 topPadd" id = "style-1" >
+		<app-groups  class = " peopleDropdown " (GroupSelected) = "sendInput($event)" ></app-groups>
+		<!-- <div style="height: 30px; top: 10px" class = "scroller"></div> -->
+	</div>
+	<div class="col-8  topPadd2"  >
+		<app-posts style="width: 100%" class = " peopleDropdown " *ngIf ="showPosts()" [ActiveGroup] = "activatedGroup"  ></app-posts>
+	</div>
+	<div class="col-2  topPadd" >
+		<app-friends class = " peopleDropdown "></app-friends>
+	</div>
+</div>
 
-
-<div class="container">
-	<!-- <app-create-group></app-create-group> -->
-	<app-groups (GroupSelected) = "sendInput($event)"></app-groups>
-	<app-posts *ngIf ="showPosts()" [ActiveGroup] = "activatedGroup"  ></app-posts>
+<!-- <div class="container">
+	<app-create-group></app-create-group>
+	
+	
 	<router-outlet *ngIf ="showPosts()" ></router-outlet>
 	<app-friends ></app-friends>
-	 <app-requests ></app-requests>
+	<app-requests ></app-requests>
 	<app-connect-people></app-connect-people> 
-</div>
+</div> -->
