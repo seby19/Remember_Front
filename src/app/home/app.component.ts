@@ -221,6 +221,7 @@ export class AppComponent implements OnInit{
 		//this.division1.nativeElement.style.filter = 50%;
 		//this.division2.nativeElement.style.filter = 50%;
 	}
+	
 	hideCreateGroup(){
 		this.GroupMenu = false;
 		localStorage.removeItem('GroupId');
