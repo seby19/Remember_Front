@@ -206,6 +206,7 @@ export class AppComponent implements OnInit{
 		//console.log(" 3 this.search " + this.search + " this.classId " + this.classId )
 		//this.classId = true;
 		return true;
+		
 	}
 	showRequestDropDown()
 	{
